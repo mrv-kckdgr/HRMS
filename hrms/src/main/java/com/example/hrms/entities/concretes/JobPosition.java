@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 
 
 @Entity
-@Table(name="jobpositions")
+@Table(name="job_positions")
 public class JobPosition {
 	
 	@Id
