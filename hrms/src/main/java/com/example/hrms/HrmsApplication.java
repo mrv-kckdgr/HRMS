@@ -9,9 +9,5 @@ public class HrmsApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HrmsApplication.class, args);
 	}
-<<<<<<< HEAD
-}
-=======
 
 }
->>>>>>> branch 'master' of https://github.com/Kucukdogru/HRMS
