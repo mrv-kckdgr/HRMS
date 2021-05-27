@@ -68,7 +68,10 @@
         <version>3.0.0</version>
      </dependency>
 	</dependencies>
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/Kucukdogru/HRMS
 	
 	<build>
 		<plugins>
@@ -87,5 +90,8 @@
 		</plugins>
 	</build>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/Kucukdogru/HRMS
 </project>
