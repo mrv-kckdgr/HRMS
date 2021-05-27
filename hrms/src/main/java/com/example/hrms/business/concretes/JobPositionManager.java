@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.hrms.business.abstracts.JobPositionService;
 import com.example.hrms.core.utilities.results.DataResult;
+import com.example.hrms.core.utilities.results.ErrorResult;
 import com.example.hrms.core.utilities.results.Result;
 import com.example.hrms.core.utilities.results.SuccessDataResult;
 import com.example.hrms.core.utilities.results.SuccessResult;
@@ -29,7 +30,11 @@ public class JobPositionManager implements JobPositionService {
 	}
 	@Override
 	public Result add(JobPosition jobPosition) {
-		this.jobPositionDao.save(jobPosition);
-		return new SuccessResult("Pozisyon başarılı bir şekilde eklendi.");
+		if(jobPositionDao.existsByPosition(jobPosition.getPosition())==false) {
+			this.jobPositionDao.save(jobPosition);
+			return new SuccessResult("Pozisyon başarılı bir şekilde eklendi.");
+		}
+		return new ErrorResult("Pozisyon eklenemedi, lütfen farklı bir pozisyon ismi deneyiniz!!!");
+		
 	}
 }
