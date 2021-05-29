@@ -18,7 +18,7 @@ public class HrmsApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HrmsApplication.class, args);
 	}
-<<<<<<< HEAD
+
 	
 	@Bean
     public Docket api() { 
@@ -27,7 +27,5 @@ public class HrmsApplication {
           .apis(RequestHandlerSelectors.basePackage("com.example.hrms"))                                        
           .build();                                           
     }
-=======
->>>>>>> branch 'master' of https://github.com/Kucukdogru/HRMS
 
 }
