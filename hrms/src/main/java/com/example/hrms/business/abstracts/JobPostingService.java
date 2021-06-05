@@ -6,9 +6,12 @@ import java.util.List;
 import com.example.hrms.core.utilities.results.DataResult;
 import com.example.hrms.core.utilities.results.Result;
 import com.example.hrms.entities.concretes.JobPosting;
+import com.example.hrms.entities.dtos.JobPostingDto;
 
 public interface JobPostingService {
-	DataResult<List<JobPosting>> getAll();
+	DataResult<List<JobPosting>> getAllJobPosting();
+	
+	//DataResult<List<JobPostingDto>> getAll();
 	
 	Result add(JobPosting jobPosting);
 	
@@ -51,4 +54,9 @@ public interface JobPostingService {
 	
 	//Bir firmaya ait tüm ilanları listeleme
 	DataResult<List<JobPosting>> getByEmployer_Id(int employerId, boolean status);
+	
+	
+	
+	//dto
+	//DataResult<List<JobPostingDto>>
 }

@@ -28,7 +28,7 @@ public class JobPostingControllers {
 	
 	@GetMapping("getall")
 	public DataResult<List<JobPosting>> getAll(){
-		return this.jobPostingService.getAll();
+		return this.jobPostingService.getAllJobPosting();
 	}
 	
 	@PostMapping("add")

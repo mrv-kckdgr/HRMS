@@ -1,8 +1,10 @@
 package com.example.hrms.business.concretes;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -14,22 +16,43 @@ import com.example.hrms.core.utilities.results.Result;
 import com.example.hrms.core.utilities.results.SuccessDataResult;
 import com.example.hrms.core.utilities.results.SuccessResult;
 import com.example.hrms.dataAccess.abstracts.JobPostingDao;
+import com.example.hrms.entities.concretes.JobPosition;
 import com.example.hrms.entities.concretes.JobPosting;
+import com.example.hrms.entities.dtos.JobPostingDto;
+
+import springfox.documentation.swagger2.mappers.ModelMapper;
 
 @Service
 public class JobPostingManager implements JobPostingService {
 	private JobPostingDao jobPostingDao;
+	private ModelMapper modelMapper;
 	
-	
-	public JobPostingManager(JobPostingDao jobPostingDao) {
+	@Autowired
+	public JobPostingManager(JobPostingDao jobPostingDao, ModelMapper modelMapper) {
 		super();
 		this.jobPostingDao = jobPostingDao;
+		this.modelMapper=modelMapper;
 	}
-
+	
 	@Override
-	public DataResult<List<JobPosting>> getAll() {
-		return new SuccessDataResult<List<JobPosting>>(jobPostingDao.findAll(), "İş ilanları başarılı bir şekilde listelendi");
+	public DataResult<List<JobPosting>> getAllJobPosting() {
+		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.findAll(), "Pozisyonlar listelendi");
 	}
+	
+	/*@Override
+	public DataResult<List<JobPostingDto>> getAll(){
+		//return new SuccessDataResult<List<JobPostingDto>>(this.dtoConvert(this.jobPostingDao.findAll()));
+		return new SuccessDataResult<List<JobPostingDto>>(this.jobPostingDao.findAll());
+	}*/
+	
+	/*private List<JobPostingDto> dtoConvert(List<JobPosting> jobPosting){
+		List<JobPostingDto> dto = new ArrayList<JobPostingDto>();
+		jobPosting.forEach(x -> {
+			JobPostingDto dao = modelMapper.map(x, JobPostingDto.class);			
+			dto.add(dao);
+		});
+		return dto;
+	}*/
 
 	@Override
 	public Result add(JobPosting jobPosting) {
