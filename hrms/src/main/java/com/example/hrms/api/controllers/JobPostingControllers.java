@@ -3,6 +3,7 @@ package com.example.hrms.api.controllers;
 import java.sql.Date;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,9 +16,11 @@ import com.example.hrms.business.abstracts.JobPostingService;
 import com.example.hrms.core.utilities.results.DataResult;
 import com.example.hrms.core.utilities.results.Result;
 import com.example.hrms.entities.concretes.JobPosting;
+import com.example.hrms.entities.dtos.JobPostingDto;
 
 @RestController
 @RequestMapping("/api/jobpostings/")
+@CrossOrigin
 public class JobPostingControllers {
 	private JobPostingService jobPostingService;
 
@@ -29,6 +32,11 @@ public class JobPostingControllers {
 	@GetMapping("getall")
 	public DataResult<List<JobPosting>> getAll(){
 		return this.jobPostingService.getAllJobPosting();
+	}
+	
+	@GetMapping("getjobpostingwithdetails")
+	public DataResult<List<JobPostingDto>> getJobPostingWithDetails() {
+		return this.jobPostingService.getJobPostingWithDetails();
 	}
 	
 	@PostMapping("add")

@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.hrms.business.abstracts.ResumeService;
 import com.example.hrms.core.utilities.cloudinary.CloudinaryService;
+import com.example.hrms.core.utilities.dtoConverter.DtoConverterService;
 import com.example.hrms.core.utilities.results.DataResult;
 import com.example.hrms.core.utilities.results.Result;
 import com.example.hrms.core.utilities.results.SuccessDataResult;
@@ -17,19 +18,22 @@ import com.example.hrms.dataAccess.abstracts.EducationDao;
 import com.example.hrms.dataAccess.abstracts.ResumeDao;
 import com.example.hrms.entities.concretes.Education;
 import com.example.hrms.entities.concretes.Resume;
+import com.example.hrms.entities.dtos.ResumeDto;
 
 @Service
 public class ResumeManager implements ResumeService {
 	private ResumeDao resumeDao;
 	private CloudinaryService cloudinaryService;
 	private EducationDao educationDao;
+	private DtoConverterService dtoConverterService;
 
 	@Autowired
-	public ResumeManager(ResumeDao resumeDao, CloudinaryService cloudinaryService, EducationDao educationDao) {
+	public ResumeManager(ResumeDao resumeDao, CloudinaryService cloudinaryService, EducationDao educationDao, DtoConverterService dtoConverterService) {
 		super();
 		this.resumeDao = resumeDao;
 		this.cloudinaryService = cloudinaryService;
 		this.educationDao=educationDao;
+		this.dtoConverterService=dtoConverterService;
 	}
 
 	@Override
@@ -64,5 +68,36 @@ public class ResumeManager implements ResumeService {
 		resumeDao.save(cv);
 		
 		return new SuccessResult("Görsel başarılı bir şekilde eklendii");
+	}
+
+	@Override
+	public DataResult<List<Resume>> getAllResume() {		
+		return new SuccessDataResult<List<Resume>>(this.resumeDao.findAll(), "Özgeçmiş görüntüleme başarılı");
+	}
+
+	@Override
+	public DataResult<List<ResumeDto>> getResumeWithDetails() {		
+		return new SuccessDataResult<List<ResumeDto>>(dtoConverterService.dtoConverter(resumeDao.findAll(), ResumeDto.class), "Başarılı");
+	}
+
+	@Override
+	public Result addResumeDto(ResumeDto resumeDto) {
+		this.resumeDao.save((Resume) this.dtoConverterService.dtoClassConverter(resumeDto, Resume.class));
+		return new SuccessResult("Özgeçmiş başarılı bir şekilde eklendi");
+	}
+
+	@Override
+	public DataResult<List<ResumeDto>> getByCandidate_Id(int candidateId) {
+		return new SuccessDataResult<List<ResumeDto>>(this.resumeDao.getByCandidate_Id(candidateId), "Başarılı");
+	}
+
+//	@Override
+//	public DataResult<Resume> getByCandidateId(int candidateId) {		
+//		return new SuccessDataResult<Resume>(this.resumeDao.getByCandidateId(candidateId), "Listeleme başarılı");
+//	}
+
+	@Override
+	public DataResult<ResumeDto> getByCandidateId(int candidateId) {		
+		return new SuccessDataResult<ResumeDto>(resumeDao.getByCandidateId(candidateId), "success");
 	}
 }

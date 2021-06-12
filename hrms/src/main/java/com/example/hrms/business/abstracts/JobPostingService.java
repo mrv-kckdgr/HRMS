@@ -11,7 +11,7 @@ import com.example.hrms.entities.dtos.JobPostingDto;
 public interface JobPostingService {
 	DataResult<List<JobPosting>> getAllJobPosting();
 	
-	//DataResult<List<JobPostingDto>> getAll();
+	DataResult<List<JobPostingDto>> getJobPostingWithDetails();
 	
 	Result add(JobPosting jobPosting);
 	
@@ -54,9 +54,4 @@ public interface JobPostingService {
 	
 	//Bir firmaya ait tüm ilanları listeleme
 	DataResult<List<JobPosting>> getByEmployer_Id(int employerId, boolean status);
-	
-	
-	
-	//dto
-	//DataResult<List<JobPostingDto>>
 }

@@ -22,12 +22,13 @@ import springfox.documentation.swagger2.mappers.ModelMapper;
 public class JobPositionManager implements JobPositionService {
 
 	private JobPositionDao jobPositionDao;
-	//private ModelMapper modelMapper;
+	private ModelMapper modelMapper;
 	
 	@Autowired
 	public JobPositionManager(JobPositionDao jobPositionDao, ModelMapper modelMapper) {
 		super();
 		this.jobPositionDao = jobPositionDao;
+		this.modelMapper=modelMapper;
 	}
 	
 	

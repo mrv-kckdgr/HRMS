@@ -22,21 +22,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class JobPostingDto {
-	
-	//@Column(name="city_id")
-	//private int cityId;
-	
-	//@Column(name="job_position_id")
-	//private int jobPositionId;
-	
-	//@Column(name="employer_id")
-	//private int employerId;	
-
+	//isimlendirmeye dikkat et
+	private int id;
 	private int numberOfPosition;
 	private Date applicationDeadline;
 	private Boolean status;	
-	private Date releaseDate;	
-	//private City cityCityName;		
+	private Date releaseDate;			
 	private JobPosition jobPositionPosition;	
 	private Employer employerCompanyName;
 }

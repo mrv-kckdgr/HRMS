@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,15 +15,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.hrms.business.abstracts.EmployerService;
+
 import com.example.hrms.business.abstracts.ResumeService;
 import com.example.hrms.core.utilities.results.DataResult;
 import com.example.hrms.core.utilities.results.Result;
-import com.example.hrms.entities.concretes.Candidate;
 import com.example.hrms.entities.concretes.Resume;
+import com.example.hrms.entities.dtos.ResumeDto;
 
 @RestController
 @RequestMapping("/api/resumes")
+@CrossOrigin
 public class ResumesController {
 	private ResumeService resumeService;
 
@@ -45,5 +47,30 @@ public class ResumesController {
 	@PutMapping("/upload")
 	public Result saveImage(@RequestBody MultipartFile file, @RequestParam int resumeId) {
 		return this.resumeService.saveImage(file, resumeId);
+	}
+	
+	@GetMapping("/getresumewithdetails")
+	public DataResult<List<ResumeDto>> getResumeWithDetails() {
+		return this.resumeService.getResumeWithDetails();
+	}
+	
+	@PostMapping("addresumedto")
+	public Result addResumeDto(@RequestBody ResumeDto resumeDto) {
+		return this.resumeService.addResumeDto(resumeDto);
+	}
+	
+	@GetMapping("getbycandidateid")
+	public DataResult<List<ResumeDto>> getByCandidate_Id(@RequestParam int candidateId) {
+		return this.resumeService.getByCandidate_Id(candidateId);
+	}
+	
+//	@GetMapping("getByCandidateIdSingleResume")
+//	public DataResult<Resume> getByCandidateId(int candidateId) {	
+//		return this.resumeService.getByCandidateId(candidateId);
+//	}
+	
+	@GetMapping("getByCandidateIdResumeDetail")
+	public DataResult<ResumeDto> getByCandidateId(@RequestParam int candidateId) {
+		return this.resumeService.getByCandidateId(candidateId);
 	}
 }

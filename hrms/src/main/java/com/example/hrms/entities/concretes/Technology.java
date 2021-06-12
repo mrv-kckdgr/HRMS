@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -34,7 +32,6 @@ public class Technology {
 	@Column(name="id")
 	private int id;
 	
-	//@Column(name="resume_id")
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne(targetEntity=Resume.class)
 	@JoinColumn(name="resume_id", referencedColumnName = "id")

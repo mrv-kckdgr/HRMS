@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort;
 
 import com.example.hrms.business.abstracts.EducationService;
+import com.example.hrms.core.utilities.dtoConverter.DtoConverterService;
 import com.example.hrms.core.utilities.results.DataResult;
 import com.example.hrms.core.utilities.results.Result;
 import com.example.hrms.core.utilities.results.SuccessDataResult;
@@ -19,11 +20,13 @@ import com.example.hrms.entities.dtos.EducationDto;
 public class EducationManager implements EducationService {
 	
 	private EducationDao educationDao;
+	private DtoConverterService dtoConverterService;
 
 	@Autowired
-	public EducationManager(EducationDao educationDao) {
+	public EducationManager(EducationDao educationDao, DtoConverterService dtoConverterService) {
 		super();
 		this.educationDao = educationDao;
+		this.dtoConverterService = dtoConverterService;
 	}
 
 	@Override
@@ -48,4 +51,10 @@ public class EducationManager implements EducationService {
 		Sort sort = Sort.by(Sort.Direction.DESC, "endDate");
 		return new SuccessDataResult<List<Education>>(this.educationDao.findAll(sort), "Success");
 	}
+
+	@Override
+	public DataResult<List<EducationDto>> getEducationWithDetails() {
+		return new SuccessDataResult<List<EducationDto>>(dtoConverterService.dtoConverter(educationDao.findAll(), EducationDto.class), "Listeleme başarılı");
+	}
+	
 }

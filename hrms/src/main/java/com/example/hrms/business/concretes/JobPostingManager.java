@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.hrms.business.abstracts.JobPostingService;
+import com.example.hrms.core.utilities.dtoConverter.DtoConverterService;
 import com.example.hrms.core.utilities.results.DataResult;
 import com.example.hrms.core.utilities.results.ErrorDataResult;
 import com.example.hrms.core.utilities.results.ErrorResult;
@@ -25,34 +26,20 @@ import springfox.documentation.swagger2.mappers.ModelMapper;
 @Service
 public class JobPostingManager implements JobPostingService {
 	private JobPostingDao jobPostingDao;
-	private ModelMapper modelMapper;
+	private DtoConverterService dtoConverterService;
 	
 	@Autowired
-	public JobPostingManager(JobPostingDao jobPostingDao, ModelMapper modelMapper) {
+	public JobPostingManager(JobPostingDao jobPostingDao, DtoConverterService dtoConverterService) {
 		super();
 		this.jobPostingDao = jobPostingDao;
-		this.modelMapper=modelMapper;
+		this.dtoConverterService=dtoConverterService;
 	}
 	
 	@Override
 	public DataResult<List<JobPosting>> getAllJobPosting() {
 		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.findAll(), "Pozisyonlar listelendi");
-	}
-	
-	/*@Override
-	public DataResult<List<JobPostingDto>> getAll(){
-		//return new SuccessDataResult<List<JobPostingDto>>(this.dtoConvert(this.jobPostingDao.findAll()));
-		return new SuccessDataResult<List<JobPostingDto>>(this.jobPostingDao.findAll());
-	}*/
-	
-	/*private List<JobPostingDto> dtoConvert(List<JobPosting> jobPosting){
-		List<JobPostingDto> dto = new ArrayList<JobPostingDto>();
-		jobPosting.forEach(x -> {
-			JobPostingDto dao = modelMapper.map(x, JobPostingDto.class);			
-			dto.add(dao);
-		});
-		return dto;
-	}*/
+	}	
+
 
 	@Override
 	public Result add(JobPosting jobPosting) {
@@ -168,6 +155,11 @@ public class JobPostingManager implements JobPostingService {
 		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.getByEmployer_Id(employerId, status), "İlgili firmaya ait tüm kayıtlar listelenmiiştir.");
 		//}
 		//return new ErrorDataResult<List<JobPosting>>(null, "Girdiğiniz Şirkete ait iş ilanı bilgisi bulunamadı!!!");
+	}
+
+	@Override
+	public DataResult<List<JobPostingDto>> getJobPostingWithDetails() {
+		return new SuccessDataResult<List<JobPostingDto>>(dtoConverterService.dtoConverter(jobPostingDao.findAll(), JobPostingDto.class), "Listeleme Başarılı");
 	}
 		
 

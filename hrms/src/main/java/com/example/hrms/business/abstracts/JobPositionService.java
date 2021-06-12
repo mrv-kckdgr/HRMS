@@ -10,4 +10,6 @@ public interface JobPositionService {
 	DataResult<List<JobPosition>> getAll();
 	
 	Result add(JobPosition jobPosition);
+	
+	//DataResult<List<JobPositionDto>> getAll();
 }

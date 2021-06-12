@@ -3,9 +3,9 @@ package com.example.hrms.entities.concretes;
 import java.sql.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,8 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -64,12 +62,13 @@ public class Resume {
 	@OneToMany(mappedBy="resume")
 	private List<Language> languages;
 	
-	@OneToMany(mappedBy="resume")
+	//cascade=CascadeType.ALL silme işleminde tüm tablolar etkilensin, sorun çıkarmasın
+	@OneToMany(mappedBy="resume", cascade=CascadeType.ALL)
 	private List<Technology> technologies;
 	
-	@OneToMany(mappedBy="resume")
+	@OneToMany(mappedBy="resume", cascade=CascadeType.ALL)
 	private List<Education> education;
 	
-	@OneToMany(mappedBy="resume")
+	@OneToMany(mappedBy="resume", cascade=CascadeType.ALL)
 	private List<JobExperience> jobExperiences;
 }
