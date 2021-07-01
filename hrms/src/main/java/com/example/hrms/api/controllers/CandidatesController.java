@@ -12,30 +12,31 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.hrms.business.abstracts.EmployerService;
+import com.example.hrms.business.abstracts.CandidateService;
 import com.example.hrms.core.utilities.results.DataResult;
 import com.example.hrms.core.utilities.results.Result;
-import com.example.hrms.entities.concretes.Employer;
+import com.example.hrms.entities.concretes.Candidate;
 
 @RestController
-@RequestMapping("/api/employers")
+@RequestMapping("/api/candidates")
 @CrossOrigin
-public class EmployerControllers {
-	private EmployerService employerService;
+public class CandidatesController {
+	private CandidateService candidateService;
 
 	@Autowired
-	public EmployerControllers(EmployerService employerService) {
+	public CandidatesController(CandidateService candidateService) {
 		super();
-		this.employerService = employerService;
+		this.candidateService = candidateService;
 	}
 	
 	@GetMapping("/getall")
-	public DataResult<List<Employer>> getAll(){
-		return this.employerService.getAll();
+	public DataResult<List<Candidate>> getAll(){
+		return this.candidateService.getAll();
 	}
 	
 	@PostMapping("/add")
-	public Result add(@Valid @RequestBody Employer employer) {
-		return this.employerService.add(employer);
+	public Result add(@Valid @RequestBody Candidate candidate) {
+		return this.candidateService.add(candidate);
 	}
+
 }

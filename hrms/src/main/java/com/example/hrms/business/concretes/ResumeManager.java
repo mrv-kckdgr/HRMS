@@ -59,7 +59,7 @@ public class ResumeManager implements ResumeService {
 
 	@Override
 	public Result saveImage(MultipartFile file, int resumeId) {
-		
+		@SuppressWarnings("unchecked")
 		Map<String, String> uploader = (Map<String, String>)
 				cloudinaryService.save(file).getData();
 		String imageUrl = uploader.get("url");

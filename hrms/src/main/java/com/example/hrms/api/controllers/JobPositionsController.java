@@ -2,8 +2,6 @@ package com.example.hrms.api.controllers;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,31 +10,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.hrms.business.abstracts.CandidateService;
+import com.example.hrms.business.abstracts.JobPositionService;
 import com.example.hrms.core.utilities.results.DataResult;
 import com.example.hrms.core.utilities.results.Result;
-import com.example.hrms.entities.concretes.Candidate;
+import com.example.hrms.entities.concretes.JobPosition;
 
 @RestController
-@RequestMapping("/api/candidates")
+@RequestMapping("/api/jobpositions/")
 @CrossOrigin
-public class CandidateControllers {
-	private CandidateService candidateService;
+public class JobPositionsController {
+	private JobPositionService jobPositionService;
 
 	@Autowired
-	public CandidateControllers(CandidateService candidateService) {
+	public JobPositionsController(JobPositionService jobPositionService) {
 		super();
-		this.candidateService = candidateService;
+		this.jobPositionService = jobPositionService;
 	}
 	
-	@GetMapping("/getall")
-	public DataResult<List<Candidate>> getAll(){
-		return this.candidateService.getAll();
+	@GetMapping("getall")
+	public DataResult<List<JobPosition>> getAll(){
+		return this.jobPositionService.getAll();
 	}
 	
-	@PostMapping("/add")
-	public Result add(@Valid @RequestBody Candidate candidate) {
-		return this.candidateService.add(candidate);
+	@PostMapping("add")
+	public Result add(@RequestBody JobPosition jobPosition) {
+		return this.jobPositionService.add(jobPosition);
 	}
-
 }

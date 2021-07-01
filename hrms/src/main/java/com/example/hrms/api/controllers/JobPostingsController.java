@@ -20,11 +20,11 @@ import com.example.hrms.entities.dtos.JobPostingDto;
 
 @RestController
 @RequestMapping("/api/jobpostings/")
-@CrossOrigin
-public class JobPostingControllers {
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+public class JobPostingsController {
 	private JobPostingService jobPostingService;
 
-	public JobPostingControllers(JobPostingService jobPostingService) {
+	public JobPostingsController(JobPostingService jobPostingService) {
 		super();
 		this.jobPostingService = jobPostingService;
 	}
@@ -72,8 +72,8 @@ public class JobPostingControllers {
 	}
 	
 	//Bir iş ilanını listeleme
-	@GetMapping("/getById/{id}")	
-	public DataResult<JobPosting> getById(@PathVariable int id){
+	@GetMapping("/getbyid")	
+	public DataResult<JobPosting> getById(@RequestParam int id){
 		return this.jobPostingService.getById(id);
 	}
 	

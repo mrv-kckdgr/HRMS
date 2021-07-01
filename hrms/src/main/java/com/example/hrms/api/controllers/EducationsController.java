@@ -21,11 +21,11 @@ import com.example.hrms.entities.dtos.EducationDto;
 @RestController
 @RequestMapping("/api/education")
 @CrossOrigin
-public class EducationController {
+public class EducationsController {
 	private EducationService educationService;
 
 	@Autowired
-	public EducationController(EducationService educationService) {
+	public EducationsController(EducationService educationService) {
 		super();
 		this.educationService = educationService;
 	};
