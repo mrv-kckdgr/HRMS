@@ -14,7 +14,8 @@ import com.example.hrms.entities.concretes.City;
 
 @RestController
 @RequestMapping("/api/cities/")
-@CrossOrigin
+//@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CitiesController {
 	private CityService cityService;
 	@Autowired

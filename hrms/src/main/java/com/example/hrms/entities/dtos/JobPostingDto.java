@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import com.example.hrms.entities.concretes.City;
 import com.example.hrms.entities.concretes.Employer;
 import com.example.hrms.entities.concretes.JobPosition;
+import com.example.hrms.entities.concretes.WorkingTime;
+import com.example.hrms.entities.concretes.WorkingType;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,12 +24,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class JobPostingDto {
-	//isimlendirmeye dikkat et
 	private int id;
 	private int numberOfPosition;
 	private Date applicationDeadline;
 	private Boolean status;	
 	private Date releaseDate;			
-	private JobPosition jobPositionPosition;	
-	private Employer employerCompanyName;
+	private String jobPosition;	
+	private Employer employer;
+	private String cityName;
+	private String workingType;
+	private String workingTime;
 }

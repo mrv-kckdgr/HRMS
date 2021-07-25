@@ -3,7 +3,6 @@ package com.example.hrms.business.concretes;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.hrms.business.abstracts.JobPositionService;
@@ -15,22 +14,13 @@ import com.example.hrms.core.utilities.results.SuccessResult;
 import com.example.hrms.dataAccess.abstracts.JobPositionDao;
 import com.example.hrms.entities.concretes.JobPosition;
 
-
-import springfox.documentation.swagger2.mappers.ModelMapper;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class JobPositionManager implements JobPositionService {
 
-	private JobPositionDao jobPositionDao;
-	private ModelMapper modelMapper;
-	
-	@Autowired
-	public JobPositionManager(JobPositionDao jobPositionDao, ModelMapper modelMapper) {
-		super();
-		this.jobPositionDao = jobPositionDao;
-		this.modelMapper=modelMapper;
-	}
-	
+	private final JobPositionDao jobPositionDao;	
 	
 	
 	@Override
@@ -39,8 +29,7 @@ public class JobPositionManager implements JobPositionService {
 			this.jobPositionDao.save(jobPosition);
 			return new SuccessResult("Pozisyon başarılı bir şekilde eklendi.");
 		}
-		return new ErrorResult("Pozisyon eklenemedi, lütfen farklı bir pozisyon ismi deneyiniz!!!");
-		
+		return new ErrorResult("Pozisyon eklenemedi, lütfen farklı bir pozisyon ismi deneyiniz!!!");		
 	}
 
 

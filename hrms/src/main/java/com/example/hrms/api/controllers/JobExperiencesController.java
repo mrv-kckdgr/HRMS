@@ -16,6 +16,7 @@ import com.example.hrms.business.abstracts.JobExperienceService;
 import com.example.hrms.core.utilities.results.DataResult;
 import com.example.hrms.core.utilities.results.Result;
 import com.example.hrms.entities.concretes.JobExperience;
+import com.example.hrms.entities.dtos.JobExperienceAddDto;
 
 @RestController
 @RequestMapping("/api/jobexperiences/")
@@ -42,5 +43,10 @@ public class JobExperiencesController {
 	@GetMapping("getallsorteddesc")
 	public DataResult<List<JobExperience>> getAllSortedDesc() {
 		return this.jobExperienceService.getAllSortedDesc();
+	}
+	
+	@PostMapping("/addJobExperienceDto")
+	public Result addJobExperience(@Valid @RequestBody JobExperienceAddDto jobExperienceAddDto) {		
+		return this.jobExperienceService.addJobExperienceDto(jobExperienceAddDto);
 	}
 }

@@ -1,39 +1,34 @@
 package com.example.hrms.business.concretes;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.hrms.business.abstracts.JobPostingService;
 import com.example.hrms.core.utilities.dtoConverter.DtoConverterService;
 import com.example.hrms.core.utilities.results.DataResult;
-import com.example.hrms.core.utilities.results.ErrorDataResult;
 import com.example.hrms.core.utilities.results.ErrorResult;
 import com.example.hrms.core.utilities.results.Result;
 import com.example.hrms.core.utilities.results.SuccessDataResult;
 import com.example.hrms.core.utilities.results.SuccessResult;
 import com.example.hrms.dataAccess.abstracts.JobPostingDao;
-import com.example.hrms.entities.concretes.JobPosition;
 import com.example.hrms.entities.concretes.JobPosting;
+import com.example.hrms.entities.dtos.JobPostingAddDto;
 import com.example.hrms.entities.dtos.JobPostingDto;
 
-import springfox.documentation.swagger2.mappers.ModelMapper;
+import lombok.RequiredArgsConstructor;
+
 
 @Service
+@RequiredArgsConstructor 
 public class JobPostingManager implements JobPostingService {
-	private JobPostingDao jobPostingDao;
-	private DtoConverterService dtoConverterService;
+	private final JobPostingDao jobPostingDao;
+	private final DtoConverterService dtoConverterService;
+	private final ModelMapper modelMapper;
 	
-	@Autowired
-	public JobPostingManager(JobPostingDao jobPostingDao, DtoConverterService dtoConverterService) {
-		super();
-		this.jobPostingDao = jobPostingDao;
-		this.dtoConverterService=dtoConverterService;
-	}
 	
 	@Override
 	public DataResult<List<JobPosting>> getAllJobPosting() {
@@ -110,7 +105,7 @@ public class JobPostingManager implements JobPostingService {
 		return new SuccessDataResult<List<JobPosting>>(jobPostingDao.getByMinSalaryEndsWith(maxSalary), "İş ilanları başarılı bir şekilde listelendi");
 	}
 
-	//Aktif iş ilanları listesi
+	//Aktif iş ilanlarının listesi
 	@Override
 	public DataResult<List<JobPosting>> getByStatus(boolean status) {
 		return new SuccessDataResult<List<JobPosting>>(jobPostingDao.getByStatus(true));
@@ -161,6 +156,32 @@ public class JobPostingManager implements JobPostingService {
 	public DataResult<List<JobPostingDto>> getJobPostingWithDetails() {
 		return new SuccessDataResult<List<JobPostingDto>>(dtoConverterService.dtoConverter(jobPostingDao.findAll(), JobPostingDto.class), "Listeleme Başarılı");
 	}
+
+	
+	public Result addJobPosting(JobPostingAddDto jobPostingDto) {
+		JobPosting jobPosting = modelMapper.map(jobPostingDto, JobPosting.class);
+		jobPostingDao.save(jobPosting);
+		System.out.println(jobPosting.getId());
+		System.out.println(jobPosting.getMaxSalary());
+		System.out.println(jobPosting.getNumberOfPosition());
+		System.out.println(jobPosting.getMinSalary());
+		return new SuccessResult("İş ilanı başarılı bir şekilde eklendi.");
+	}
+
+
+	@Override
+	public Result activeJobPosting(int id) {
+		JobPosting job = jobPostingDao.getById(id);
+		if(job.getStatus()==true) {
+			return new ErrorResult("İlan zaten aktif durumda!!!");
+		}
+		System.out.println(job.getId());
+		System.out.println(job.getStatus());
+		job.setStatus(true);
+		this.jobPostingDao.save(job);		
+		return new SuccessResult("İş ilanı başarılı bir şekilde aktif hale getirilmiştir.");
+	}
+
 		
 
 }

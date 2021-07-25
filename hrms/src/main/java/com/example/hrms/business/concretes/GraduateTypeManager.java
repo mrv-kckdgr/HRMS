@@ -2,7 +2,6 @@ package com.example.hrms.business.concretes;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.hrms.business.abstracts.GraduateTypeService;
@@ -14,15 +13,13 @@ import com.example.hrms.core.utilities.results.SuccessResult;
 import com.example.hrms.dataAccess.abstracts.GraduateTypeDao;
 import com.example.hrms.entities.concretes.GraduateType;
 
-@Service
-public class GraduateTypeManager implements GraduateTypeService {
-	private GraduateTypeDao graduateDao;
+import lombok.RequiredArgsConstructor;
 
-	@Autowired
-	public GraduateTypeManager(GraduateTypeDao graduateDao) {
-		super();
-		this.graduateDao = graduateDao;
-	}
+@Service
+@RequiredArgsConstructor
+public class GraduateTypeManager implements GraduateTypeService {
+	private final GraduateTypeDao graduateDao;
+
 
 	@Override
 	public DataResult<List<GraduateType>> getAll() {		

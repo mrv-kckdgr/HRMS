@@ -7,17 +7,20 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lombok.RequiredArgsConstructor;
+
 
 @Service
+@RequiredArgsConstructor
 public class DtoConverterManager implements DtoConverterService {
 
-	private ModelMapper modelMapper;
+	private final ModelMapper modelMapper;
 	
-	@Autowired
-	public DtoConverterManager(ModelMapper modelMapper) {
-		super();
-		this.modelMapper = modelMapper;
-	}
+//	@Autowired
+//	public DtoConverterManager(ModelMapper modelMapper) {
+//		super();
+//		this.modelMapper = modelMapper;
+//	}
 
 	@Override
 	//List<S> kaynak sınıfın kendisi

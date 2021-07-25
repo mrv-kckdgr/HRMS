@@ -17,7 +17,9 @@ import com.example.hrms.entities.concretes.JobPosition;
 
 @RestController
 @RequestMapping("/api/jobpositions/")
-@CrossOrigin
+//@CrossOrigin
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin("http://localhost:3000")
 public class JobPositionsController {
 	private JobPositionService jobPositionService;
 

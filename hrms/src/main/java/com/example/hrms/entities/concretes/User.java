@@ -39,12 +39,12 @@ public class User {
 	
 	
 	@NotBlank(message = "Parola alanı zorunludur!!!")
-	@Size(min = 6, max = 30)
+	@Size(min = 6, max = 12)
 	@Column(name="password")
 	private String password;
 	
 	@NotBlank(message = "Parola tekrar alanı zorunludur!!!")
-	@Size(min = 2, max = 30)
+	@Size(min = 6, max = 12)
 	@Transient
 	private String passwordRepeat;
 	

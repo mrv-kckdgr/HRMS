@@ -2,7 +2,7 @@ package com.example.hrms.business.concretes;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort;
 
@@ -13,17 +13,17 @@ import com.example.hrms.core.utilities.results.SuccessDataResult;
 import com.example.hrms.core.utilities.results.SuccessResult;
 import com.example.hrms.dataAccess.abstracts.JobExperienceDao;
 import com.example.hrms.entities.concretes.JobExperience;
+import com.example.hrms.entities.dtos.JobExperienceAddDto;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class JobExperienceManager implements JobExperienceService {
 	
-	private JobExperienceDao jobExperienceDao;
+	private final JobExperienceDao jobExperienceDao;
+	private final ModelMapper modelMapper;
 
-	@Autowired
-	public JobExperienceManager(JobExperienceDao jobExperienceDao) {
-		super();
-		this.jobExperienceDao = jobExperienceDao;
-	}
 
 	@Override
 	public DataResult<List<JobExperience>> getAll() {
@@ -41,6 +41,15 @@ public class JobExperienceManager implements JobExperienceService {
 		// In descending order by endDate
 		Sort sort = Sort.by(Sort.Direction.DESC, "endDate");
 		return new SuccessDataResult<List<JobExperience>>(this.jobExperienceDao.findAll(sort), "Tarihe göre listeleme işlemi başarılı.");
+	}
+
+	@Override
+	public Result addJobExperienceDto(JobExperienceAddDto jobExperienceAddDto) {
+		JobExperience jobExperience = modelMapper.map(jobExperienceAddDto, JobExperience.class);
+		jobExperienceDao.save(jobExperience);
+		System.out.println(jobExperience.getId());
+		System.out.println(jobExperience.getCompanyName());
+		return new SuccessResult("İş deneyimi başarılı bir şekilde eklendi.");
 	}
 
 }

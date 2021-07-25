@@ -16,7 +16,9 @@ import com.example.hrms.business.abstracts.EducationService;
 import com.example.hrms.core.utilities.results.DataResult;
 import com.example.hrms.core.utilities.results.Result;
 import com.example.hrms.entities.concretes.Education;
+import com.example.hrms.entities.dtos.EducationAddDto;
 import com.example.hrms.entities.dtos.EducationDto;
+import com.example.hrms.entities.dtos.JobPostingAddDto;
 
 @RestController
 @RequestMapping("/api/education")
@@ -48,5 +50,10 @@ public class EducationsController {
 	@GetMapping("geteducationwithdetails")
 	public DataResult<List<EducationDto>> getEducationWithDetails() {
 		return this.educationService.getEducationWithDetails();
+	}
+	
+	@PostMapping("/addEducationDto")
+	public Result addJobPosting(@Valid @RequestBody EducationAddDto educationDto) {		
+		return this.educationService.addEducationDto(educationDto);
 	}
 }

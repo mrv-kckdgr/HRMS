@@ -14,7 +14,8 @@ import com.example.hrms.entities.concretes.WorkingTime;
 
 @RestController
 @RequestMapping("/api/workingtimes/")
-@CrossOrigin
+//@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class WorkingTimesController {
 	private WorkingTimeService workingTimeService;
 

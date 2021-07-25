@@ -6,6 +6,7 @@ import java.util.List;
 import com.example.hrms.core.utilities.results.DataResult;
 import com.example.hrms.core.utilities.results.Result;
 import com.example.hrms.entities.concretes.JobPosting;
+import com.example.hrms.entities.dtos.JobPostingAddDto;
 import com.example.hrms.entities.dtos.JobPostingDto;
 
 public interface JobPostingService {
@@ -54,4 +55,10 @@ public interface JobPostingService {
 	
 	//Bir firmaya ait tüm ilanları listeleme
 	DataResult<List<JobPosting>> getByEmployer_Id(int employerId, boolean status);
+	
+	// Kayıt eklemek
+	Result addJobPosting(JobPostingAddDto jobPostingDto);
+	
+	//İş ilanı onaylama pasif durumdan aktif hale getirme
+    Result activeJobPosting(int id);
 }

@@ -3,7 +3,7 @@ package com.example.hrms.business.concretes;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,21 +20,16 @@ import com.example.hrms.entities.concretes.Education;
 import com.example.hrms.entities.concretes.Resume;
 import com.example.hrms.entities.dtos.ResumeDto;
 
-@Service
-public class ResumeManager implements ResumeService {
-	private ResumeDao resumeDao;
-	private CloudinaryService cloudinaryService;
-	private EducationDao educationDao;
-	private DtoConverterService dtoConverterService;
+import lombok.RequiredArgsConstructor;
 
-	@Autowired
-	public ResumeManager(ResumeDao resumeDao, CloudinaryService cloudinaryService, EducationDao educationDao, DtoConverterService dtoConverterService) {
-		super();
-		this.resumeDao = resumeDao;
-		this.cloudinaryService = cloudinaryService;
-		this.educationDao=educationDao;
-		this.dtoConverterService=dtoConverterService;
-	}
+@Service
+@RequiredArgsConstructor
+public class ResumeManager implements ResumeService {
+	private final ResumeDao resumeDao;
+	private final CloudinaryService cloudinaryService;
+	private final EducationDao educationDao;
+	private final DtoConverterService dtoConverterService;
+
 
 	@Override
 	public DataResult<List<Resume>> getAll() {
@@ -91,10 +86,6 @@ public class ResumeManager implements ResumeService {
 		return new SuccessDataResult<List<ResumeDto>>(this.resumeDao.getByCandidate_Id(candidateId), "Başarılı");
 	}
 
-//	@Override
-//	public DataResult<Resume> getByCandidateId(int candidateId) {		
-//		return new SuccessDataResult<Resume>(this.resumeDao.getByCandidateId(candidateId), "Listeleme başarılı");
-//	}
 
 	@Override
 	public DataResult<ResumeDto> getByCandidateId(int candidateId) {		

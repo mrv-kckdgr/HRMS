@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.example.hrms.entities.concretes.JobPosting;
 import com.example.hrms.entities.concretes.Resume;
 import com.example.hrms.entities.dtos.ResumeDto;
 

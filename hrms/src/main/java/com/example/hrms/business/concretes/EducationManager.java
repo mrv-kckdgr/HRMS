@@ -1,8 +1,10 @@
 package com.example.hrms.business.concretes;
 
+
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort;
 
@@ -14,20 +16,19 @@ import com.example.hrms.core.utilities.results.SuccessDataResult;
 import com.example.hrms.core.utilities.results.SuccessResult;
 import com.example.hrms.dataAccess.abstracts.EducationDao;
 import com.example.hrms.entities.concretes.Education;
+import com.example.hrms.entities.dtos.EducationAddDto;
 import com.example.hrms.entities.dtos.EducationDto;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class EducationManager implements EducationService {
 	
-	private EducationDao educationDao;
-	private DtoConverterService dtoConverterService;
+	private final EducationDao educationDao;
+	private final DtoConverterService dtoConverterService;
+	private final ModelMapper modelMapper;
 
-	@Autowired
-	public EducationManager(EducationDao educationDao, DtoConverterService dtoConverterService) {
-		super();
-		this.educationDao = educationDao;
-		this.dtoConverterService = dtoConverterService;
-	}
 
 	@Override
 	public DataResult<List<Education>> getAll() {		
@@ -56,5 +57,17 @@ public class EducationManager implements EducationService {
 	public DataResult<List<EducationDto>> getEducationWithDetails() {
 		return new SuccessDataResult<List<EducationDto>>(dtoConverterService.dtoConverter(educationDao.findAll(), EducationDto.class), "Listeleme başarılı");
 	}
+	
+	public Result addEducationDto(EducationAddDto educationDto) {
+		//educationDto.setCreateDate(LocalDateTime.now());
+		System.out.println(educationDto.getCreateDate());
+		Education education = modelMapper.map(educationDto, Education.class);
+		educationDao.save(education);
+		System.out.println(education.getId());
+		System.out.println(education.getId());
+		System.out.println(education.getSchoolDepartment());		
+		return new SuccessResult("Eğitim başarılı bir şekilde eklendi.");
+	}
+
 	
 }

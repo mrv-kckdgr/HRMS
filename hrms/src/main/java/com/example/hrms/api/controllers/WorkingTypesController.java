@@ -14,7 +14,8 @@ import com.example.hrms.entities.concretes.WorkingType;
 
 @RestController
 @RequestMapping("/api/workingtypes/")
-@CrossOrigin
+//@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class WorkingTypesController {
 
 	private WorkingTypeService workingTypeService;

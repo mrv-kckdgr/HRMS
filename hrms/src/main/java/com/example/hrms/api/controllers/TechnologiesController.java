@@ -16,6 +16,8 @@ import com.example.hrms.business.abstracts.TechnologyService;
 import com.example.hrms.core.utilities.results.DataResult;
 import com.example.hrms.core.utilities.results.Result;
 import com.example.hrms.entities.concretes.Technology;
+import com.example.hrms.entities.dtos.JobPostingAddDto;
+import com.example.hrms.entities.dtos.TechnologyAddDto;
 
 @RestController
 @RequestMapping("/api/technologies/")
@@ -37,5 +39,10 @@ public class TechnologiesController {
 	@PostMapping("add")
 	public Result add(@Valid @RequestBody Technology technology){
 		return this.technologyService.add(technology);
+	}
+	
+	@PostMapping("/addTechnologyDto")
+	public Result addTechnologyDto(@Valid @RequestBody TechnologyAddDto technologyAddDto) {		
+		return this.technologyService.addTechnologyDto(technologyAddDto);
 	}
 }
