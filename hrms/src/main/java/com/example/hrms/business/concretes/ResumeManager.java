@@ -91,4 +91,15 @@ public class ResumeManager implements ResumeService {
 	public DataResult<ResumeDto> getByCandidateId(int candidateId) {		
 		return new SuccessDataResult<ResumeDto>(resumeDao.getByCandidateId(candidateId), "success");
 	}
+
+	@Override
+	public Result updateResumeDto(ResumeDto resumeDto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DataResult<Resume> getById(int id) {
+		return new SuccessDataResult<Resume>(resumeDao.getById(id), "Veri listelendi");
+	}
 }

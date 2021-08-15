@@ -6,4 +6,6 @@ import com.example.hrms.entities.concretes.GraduateType;
 
 public interface GraduateTypeDao extends JpaRepository<GraduateType, Integer> {
 	boolean existsByDescription(String description);
+	
+	GraduateType getById(int id);
 }

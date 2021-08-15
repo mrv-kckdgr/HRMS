@@ -50,5 +50,21 @@ public class EmployerManager implements EmployerService {
 	    return new ErrorResult("Giriş Başarısız!!!");			
 		
 	}
+	@Override
+	public DataResult<Employer> getById(int id) {
+		return new SuccessDataResult<Employer>(employerDao.getById(id),"Listeleme başarılı");
+	}
+	@Override
+	public Result update(Employer employer) {
+		Employer employerUpdate = employerDao.getById(employer.getId());
+		employerUpdate.setCompanyName(employer.getCompanyName());
+		employerUpdate.setEmail(employer.getEmail());
+		employerUpdate.setJobPostings(employer.getJobPostings());
+		employerUpdate.setPassword(employer.getPassword());
+		employerUpdate.setPhoneNumber(employer.getPhoneNumber());
+		employerUpdate.setWebAddress(employer.getWebAddress());
+		employerDao.save(employerUpdate);
+		return new SuccessResult("Çalışan başarılı bir şekilde güncellendi");
+	}
 
 }

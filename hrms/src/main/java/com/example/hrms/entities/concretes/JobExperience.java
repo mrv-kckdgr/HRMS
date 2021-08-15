@@ -2,6 +2,7 @@ package com.example.hrms.entities.concretes;
 
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -51,9 +52,8 @@ public class JobExperience {
 	@Column(name="end_date")
 	private Date endDate;	
 	
-	//@Temporal(TemporalType.DATE)
 	@Column(name="create_date")
-	private Date createDate;
+	private LocalDate createDate = LocalDate.now();
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne(targetEntity=Resume.class)

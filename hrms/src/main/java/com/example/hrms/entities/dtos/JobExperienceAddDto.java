@@ -1,6 +1,7 @@
 package com.example.hrms.entities.dtos;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -39,5 +40,5 @@ public class JobExperienceAddDto {
 	private Date endDate;	
 	
 	@Column(name="create_date")
-	private Date createDate;
+	private LocalDate createDate = LocalDate.now();
 }

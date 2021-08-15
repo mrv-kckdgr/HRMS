@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.hrms.business.abstracts.CandidateService;
 import com.example.hrms.core.utilities.results.DataResult;
+import com.example.hrms.core.utilities.results.ErrorResult;
 import com.example.hrms.core.utilities.results.Result;
 import com.example.hrms.core.utilities.results.SuccessDataResult;
 import com.example.hrms.core.utilities.results.SuccessResult;
@@ -14,6 +15,7 @@ import com.example.hrms.dataAccess.abstracts.CandidateDao;
 import com.example.hrms.dataAccess.abstracts.CityDao;
 import com.example.hrms.dataAccess.abstracts.UserDao;
 import com.example.hrms.entities.concretes.Candidate;
+import com.example.hrms.entities.concretes.JobPosting;
 
 import lombok.RequiredArgsConstructor;
 
@@ -37,5 +39,28 @@ public class CandidateManager implements CandidateService {
 		//return new ErrorResult("Şifre ve şifre tekrar uyuşmuyor veya aynı email daha önceden eklenmiş veya TC Kimlik Numarası daha önceden eklenmiş!!!");		
 		
 	}
-
+	
+	@Override
+	public DataResult<Candidate> getById(int id) {
+		return new SuccessDataResult<Candidate>(this.candidateDao.getById(id), "Veri listelendi");
+	}
+	
+	
+	@Override
+	public Result update(Candidate candidate) {
+		System.out.println(candidate.getFirstName());
+		//if(candidate.getPassword() == candidate.getPasswordRepeat()) {
+			Candidate updateCandidate = this.candidateDao.getById(candidate.getId());
+			updateCandidate.setFirstName(candidate.getFirstName());
+			updateCandidate.setLastName(candidate.getLastName());
+			updateCandidate.setDateOfBirth(candidate.getDateOfBirth());
+			updateCandidate.setEmail(candidate.getEmail());
+			updateCandidate.setNationalNumber(candidate.getNationalNumber());
+			updateCandidate.setPassword(candidate.getPassword());
+			this.candidateDao.save(updateCandidate);
+			return new SuccessResult("Güncelleme işlemi başarılı bir şekilde gerçekleştirildi.");
+		//}
+		
+		//return new ErrorResult("Şifreler uyuşmuyor!");
+	}
 }

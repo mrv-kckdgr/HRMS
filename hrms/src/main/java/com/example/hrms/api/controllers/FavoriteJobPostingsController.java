@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -16,49 +15,38 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.hrms.business.abstracts.CandidateService;
+import com.example.hrms.business.abstracts.FavoriteJobPostingService;
 import com.example.hrms.core.utilities.results.DataResult;
-import com.example.hrms.core.utilities.results.Result;
-import com.example.hrms.entities.concretes.Candidate;
-import com.example.hrms.entities.concretes.JobPosting;
 import com.example.hrms.core.utilities.results.ErrorDataResult;
+import com.example.hrms.core.utilities.results.Result;
+import com.example.hrms.entities.concretes.FavoriteJobPosting;
+import com.example.hrms.entities.dtos.FavoriteJobPostingAddDto;
 
-//import kodlamaio.northwind.core.utilities.results.ErrorDataResult;
+import lombok.RequiredArgsConstructor;
 
+@RequestMapping("/api/favoritejobpostings/")
 @RestController
-@RequestMapping("/api/candidates")
 @CrossOrigin
-public class CandidatesController {
-	private CandidateService candidateService;
-
-	@Autowired
-	public CandidatesController(CandidateService candidateService) {
-		super();
-		this.candidateService = candidateService;
+@RequiredArgsConstructor
+public class FavoriteJobPostingsController {
+	private final FavoriteJobPostingService favoriteJobPostingService;
+	
+	@GetMapping("getall")
+	public DataResult<List<FavoriteJobPosting>> getAll(){
+		return favoriteJobPostingService.getAll();
 	}
 	
-	@GetMapping("/getall")
-	public DataResult<List<Candidate>> getAll(){
-		return this.candidateService.getAll();
+	@PostMapping("add")
+	public Result add(@Valid @RequestBody FavoriteJobPosting favoriteJobPosting) {
+		return favoriteJobPostingService.add(favoriteJobPosting);
 	}
 	
-	@PostMapping("/add")
-	public Result add(@Valid @RequestBody Candidate candidate) {
-		return this.candidateService.add(candidate);
-	}
-	
-	@GetMapping("/getbyid")	
-	public DataResult<Candidate> getById(@RequestParam int id){
-		return this.candidateService.getById(id);
-	}
-	
-	@PostMapping("/update")
-	public Result update(@Valid @RequestBody Candidate candidate) {
-		return this.candidateService.update(candidate);
+	@PostMapping("addFavoriteJobPostingDto")
+	public Result addFavoriteJobPostingDto(FavoriteJobPostingAddDto favoriteJobPostingAddDto) {
+		return favoriteJobPostingService.addFavoriteJobPostingDto(favoriteJobPostingAddDto);
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
@@ -72,5 +60,4 @@ public class CandidatesController {
 		return errors;
 		
 	}
-
 }

@@ -11,4 +11,6 @@ public interface GraduateTypeService {
 	DataResult<List<GraduateType>> getAll();
 	
 	Result add(GraduateType graduateType);
+	
+	DataResult<GraduateType> getById(int id);
 }

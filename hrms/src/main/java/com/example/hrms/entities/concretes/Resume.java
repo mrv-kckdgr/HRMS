@@ -1,6 +1,7 @@
 package com.example.hrms.entities.concretes;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -44,8 +45,7 @@ public class Resume {
 	private String description;
 	
 	@Column(name="create_date")
-	//@Temporal(TemporalType.DATE)
-	private Date createDate;
+	private LocalDate createDate = LocalDate.now();
 	
 	@Column(name="status")
 	private boolean status=true;
@@ -53,8 +53,6 @@ public class Resume {
 	@Column(name="update_date")
 	private Date updateDate;
 	
-	//@Column(name="candidate_id")
-	//Bir kişiye ait birden fazla cv olabilir. (İngilizce - Türkçe)
 	@ManyToOne(targetEntity = Candidate.class)
 	@JoinColumn(name="candidate_id", referencedColumnName="id", nullable = false)
 	private Candidate candidate;
@@ -62,7 +60,6 @@ public class Resume {
 	@OneToMany(mappedBy="resume")
 	private List<Language> languages;
 	
-	//cascade=CascadeType.ALL silme işleminde tüm tablolar etkilensin, sorun çıkarmasın
 	@OneToMany(mappedBy="resume", cascade=CascadeType.ALL)
 	private List<Technology> technologies;
 	

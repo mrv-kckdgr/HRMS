@@ -105,18 +105,6 @@ public class JobPostingsController {
 		return this.jobPostingService.getByEmployer_Id(employerId, status);
 	}
 	
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public ErrorDataResult<Object> handlerValidationException(MethodArgumentNotValidException exceptions){
-		Map<String, String> validationErrors = new HashMap<String, String>();
-		for(FieldError fieldError: exceptions.getBindingResult().getFieldErrors()) {
-			validationErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
-		}
-		ErrorDataResult<Object> errors = new ErrorDataResult<Object>(validationErrors, "Doğrulama hataları:");
-		return errors;
-		
-	}
-	
 	@PostMapping("/addJobPostingDto")
 	public Result addJobPosting(@Valid @RequestBody JobPostingAddDto jobPostingDto) {		
 		return this.jobPostingService.addJobPosting(jobPostingDto);
@@ -131,5 +119,22 @@ public class JobPostingsController {
 	@PostMapping("/activejobposting")
 	public Result activeJobPosting(@Valid @RequestParam int id) {
 		return this.jobPostingService.activeJobPosting(id);
+	}
+	
+	@PostMapping("/updateJobPostingDto")
+	public Result updateJobPosting(@Valid @RequestBody JobPostingAddDto jobPostingDto) {
+		return this.jobPostingService.updateJobPosting(jobPostingDto);
+	}
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ErrorDataResult<Object> handlerValidationException(MethodArgumentNotValidException exceptions){
+		Map<String, String> validationErrors = new HashMap<String, String>();
+		for(FieldError fieldError: exceptions.getBindingResult().getFieldErrors()) {
+			validationErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
+		}
+		ErrorDataResult<Object> errors = new ErrorDataResult<Object>(validationErrors, "Doğrulama hataları:");
+		return errors;
+		
 	}
 }

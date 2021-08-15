@@ -50,15 +50,13 @@ public interface JobPostingService {
 	//Sort By Date
 	DataResult<List<JobPosting>> getAllSorted(int pageNo, int pageSize);
 	
-	//İş ilanı pasifleştirme
 	Result closeJobPosting(int id);
 	
-	//Bir firmaya ait tüm ilanları listeleme
 	DataResult<List<JobPosting>> getByEmployer_Id(int employerId, boolean status);
 	
-	// Kayıt eklemek
 	Result addJobPosting(JobPostingAddDto jobPostingDto);
 	
-	//İş ilanı onaylama pasif durumdan aktif hale getirme
     Result activeJobPosting(int id);
+    
+    Result updateJobPosting(JobPostingAddDto jobPostingDto);
 }

@@ -1,6 +1,7 @@
 package com.example.hrms.business.concretes;
 
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -15,7 +16,11 @@ import com.example.hrms.core.utilities.results.Result;
 import com.example.hrms.core.utilities.results.SuccessDataResult;
 import com.example.hrms.core.utilities.results.SuccessResult;
 import com.example.hrms.dataAccess.abstracts.EducationDao;
+import com.example.hrms.entities.concretes.Candidate;
 import com.example.hrms.entities.concretes.Education;
+import com.example.hrms.entities.concretes.GraduateType;
+import com.example.hrms.entities.concretes.Language;
+import com.example.hrms.entities.concretes.Resume;
 import com.example.hrms.entities.dtos.EducationAddDto;
 import com.example.hrms.entities.dtos.EducationDto;
 
@@ -59,14 +64,40 @@ public class EducationManager implements EducationService {
 	}
 	
 	public Result addEducationDto(EducationAddDto educationDto) {
-		//educationDto.setCreateDate(LocalDateTime.now());
-		System.out.println(educationDto.getCreateDate());
 		Education education = modelMapper.map(educationDto, Education.class);
 		educationDao.save(education);
 		System.out.println(education.getId());
 		System.out.println(education.getId());
-		System.out.println(education.getSchoolDepartment());		
+		System.out.println(education.getSchoolDepartment());	
+		System.out.println(education.getCreateDate());
 		return new SuccessResult("Eğitim başarılı bir şekilde eklendi.");
+	}
+
+	@Override
+	public DataResult<Education> getById(int id) {
+		return new SuccessDataResult<Education>(this.educationDao.getById(id), "Veri Listelendi");
+	}
+	
+
+	@Override
+	public Result updateEducationDto(EducationAddDto educationDto) {
+		Education educationUpdate = modelMapper.map(educationDto, Education.class);
+		//Resume resumeUpdate = modelMapper.map(educationUpdate, Resume.class);
+		//GraduateType graduateTypeUpdate = modelMapper.map(educationUpdate, GraduateType.class)
+		educationUpdate.setCreateDate(LocalDate.now());
+		educationUpdate.setEndDate(educationDto.getEndDate());
+		//educationUpdate.setGraduateType(educationDto.getGraduateTypeId());
+		//educationUpdate.setResume(educationDto.getResumeId());
+		educationUpdate.setSchoolDepartment(educationDto.getSchoolDepartment());
+		educationUpdate.setSchoolName(educationDto.getSchoolName());
+		educationUpdate.setStartingDate(educationDto.getStartingDate());
+		educationDao.save(educationUpdate);		
+		return new SuccessResult("Eğitim başarılı bir şekilde güncellendi.");
+	}
+
+	@Override
+	public DataResult<List<Education>> getByResume_Id(int resumeId) {
+		return new SuccessDataResult<List<Education>>(this.educationDao.getByResume_Id(resumeId), "Veriler başarılı bir şekilde listelendi.");		
 	}
 
 	

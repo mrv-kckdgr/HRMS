@@ -1,5 +1,6 @@
 package com.example.hrms.business.concretes;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -50,6 +51,29 @@ public class JobExperienceManager implements JobExperienceService {
 		System.out.println(jobExperience.getId());
 		System.out.println(jobExperience.getCompanyName());
 		return new SuccessResult("İş deneyimi başarılı bir şekilde eklendi.");
+	}
+
+	@Override
+	public Result updateJobExperienceDto(JobExperienceAddDto jobExperienceAddDto) {
+		JobExperience jobExperienceUpdate = this.jobExperienceDao.getById(jobExperienceAddDto.getId());
+		jobExperienceUpdate.setCompanyName(jobExperienceAddDto.getCompanyName());
+		jobExperienceUpdate.setCreateDate(LocalDate.now());
+		jobExperienceUpdate.setEndDate(jobExperienceAddDto.getEndDate());
+		//jobExperienceUpdate.setJobPosition(jobExperienceAddDto.getJobPositionId());
+		//jobExperienceUpdate.setResume(jobExperienceAddDto.getResumeId());
+		jobExperienceUpdate.setStartingDate(jobExperienceAddDto.getStartingDate());
+		this.jobExperienceDao.save(jobExperienceUpdate);
+		return new SuccessResult("İş deneyimi başarılı bir şekilde güncellendi.");
+	}
+
+	@Override
+	public DataResult<JobExperience> getById(int id) {
+		return new SuccessDataResult<JobExperience>(this.jobExperienceDao.getById(id),"Listeleme başarılı");
+	}
+
+	@Override
+	public DataResult<List<JobExperience>> getByResume_Id(int resumeId) {
+		return new SuccessDataResult<List<JobExperience>>(jobExperienceDao.getByResume_Id(resumeId), "Listeleme başarılı");
 	}
 
 }

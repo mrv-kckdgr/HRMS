@@ -34,4 +34,10 @@ public class GraduateTypeManager implements GraduateTypeService {
 		this.graduateDao.save(graduateType);
 		return new SuccessResult("Ekleme başarılı");
 	}
+
+
+	@Override
+	public DataResult<GraduateType> getById(int id) {
+		return new SuccessDataResult<GraduateType>(this.graduateDao.getById(id), "Listeleme başarılı");
+	}
 }

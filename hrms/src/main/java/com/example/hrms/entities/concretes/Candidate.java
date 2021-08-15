@@ -1,12 +1,14 @@
 package com.example.hrms.entities.concretes;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -22,7 +24,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name="candidates")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "favoriteJobPostings"})
 
 public class Candidate extends User{
 	
@@ -49,4 +52,8 @@ public class Candidate extends User{
 	@NotNull(message = "Doğum Tarihi alanı zorunludur.")
 	@Column(name="date_of_birth")
 	private Date dateOfBirth; //1997-11-01
+	
+	
+	@OneToMany(mappedBy = "candidate")
+	private List<FavoriteJobPosting> favoriteJobPostings;
 }

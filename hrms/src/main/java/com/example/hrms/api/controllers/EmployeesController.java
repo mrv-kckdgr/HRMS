@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -20,45 +19,40 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.hrms.business.abstracts.CandidateService;
+import com.example.hrms.business.abstracts.EmployeeService;
 import com.example.hrms.core.utilities.results.DataResult;
-import com.example.hrms.core.utilities.results.Result;
-import com.example.hrms.entities.concretes.Candidate;
-import com.example.hrms.entities.concretes.JobPosting;
 import com.example.hrms.core.utilities.results.ErrorDataResult;
+import com.example.hrms.core.utilities.results.Result;
+import com.example.hrms.entities.concretes.Employee;
 
-//import kodlamaio.northwind.core.utilities.results.ErrorDataResult;
+import lombok.RequiredArgsConstructor;
+
 
 @RestController
-@RequestMapping("/api/candidates")
+@RequestMapping("/api/employees/")
+@RequiredArgsConstructor
 @CrossOrigin
-public class CandidatesController {
-	private CandidateService candidateService;
-
-	@Autowired
-	public CandidatesController(CandidateService candidateService) {
-		super();
-		this.candidateService = candidateService;
+public class EmployeesController {
+	private final EmployeeService employeeService;
+	
+	@GetMapping("getall")
+	public DataResult<List<Employee>> getAll(){
+		return this.employeeService.getAll();
 	}
 	
-	@GetMapping("/getall")
-	public DataResult<List<Candidate>> getAll(){
-		return this.candidateService.getAll();
+	@PostMapping("add")
+	public Result add(@Valid @RequestBody Employee employee) {
+		return this.employeeService.add(employee);
 	}
 	
-	@PostMapping("/add")
-	public Result add(@Valid @RequestBody Candidate candidate) {
-		return this.candidateService.add(candidate);
+	@PostMapping("update")
+	public Result update(@Valid @RequestBody Employee employee) {
+		return this.employeeService.update(employee);
 	}
 	
-	@GetMapping("/getbyid")	
-	public DataResult<Candidate> getById(@RequestParam int id){
-		return this.candidateService.getById(id);
-	}
-	
-	@PostMapping("/update")
-	public Result update(@Valid @RequestBody Candidate candidate) {
-		return this.candidateService.update(candidate);
+	@GetMapping("getbyid")
+	public DataResult<Employee> getById(@RequestParam int id){
+		return this.employeeService.getById(id);
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
@@ -72,5 +66,4 @@ public class CandidatesController {
 		return errors;
 		
 	}
-
 }

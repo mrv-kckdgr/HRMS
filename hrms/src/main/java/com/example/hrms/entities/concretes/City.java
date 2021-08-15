@@ -24,6 +24,13 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "jobPostings"})
 public class City {
 	
+	
+	
+	public City(int id) {
+		super();
+		this.id = id;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")

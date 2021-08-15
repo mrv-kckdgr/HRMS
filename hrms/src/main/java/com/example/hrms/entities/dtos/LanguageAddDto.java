@@ -1,25 +1,23 @@
 package com.example.hrms.entities.dtos;
 
-import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
-
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EducationAddDto {
+public class LanguageAddDto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
@@ -28,24 +26,15 @@ public class EducationAddDto {
 	@Column(name="resume_id")
 	private int resumeId;
 	
-	@Column(name="school_name")
-	@NotBlank(message="Okul adı boş geçilemez!!!")
-	private String schoolName;
+	@Column(name="language_name")
+	@NotBlank(message = "Dil adı boş geçilemez!!!")
+	private String languageName;
 	
-
-	@Column(name="school_department")
-	@NotBlank(message = "Departman boş geçilemez!!!")
-	private String schoolDepartment;
-	
-	@Column(name="starting_date")
-	private Date startingDate;
-	
-	@Column(name="end_date")
-	private Date endDate;
+	@Column(name="language_level")
+	//@NotEmpty(message = "Dil seviyesi boş geçilemez!!!")
+	//@Size(min = 1)
+	private char languageLevel;
 	
 	@Column(name="create_date")
-	private LocalDate createDate = LocalDate.now();	
-	
-	@Column(name="graduate_type_id")
-	private int graduateTypeId;
+	private LocalDate createDate = LocalDate.now();
 }

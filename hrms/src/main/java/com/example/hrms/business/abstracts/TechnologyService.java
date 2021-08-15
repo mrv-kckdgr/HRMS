@@ -9,6 +9,14 @@ import com.example.hrms.entities.dtos.TechnologyAddDto;
 
 public interface TechnologyService {
 	DataResult<List<Technology>> getAll();
+	
 	Result add(Technology technology);
+	
 	Result addTechnologyDto(TechnologyAddDto technologyAddDto);
+	
+	DataResult<List<Technology>> getByResume_Id(int resumeId);
+	
+	DataResult<Technology> getById(int id);
+	
+	Result updateTechnologyDto(TechnologyAddDto technologyAddDto);
 }

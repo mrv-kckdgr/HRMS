@@ -1,6 +1,6 @@
 package com.example.hrms.entities.concretes;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,8 +48,6 @@ public class Language {
 	private char languageLevel;
 	
 	@Column(name="create_date")
-	//@Temporal(TemporalType.DATE)
-	private Date createDate;
-	
+	private LocalDate createDate = LocalDate.now();
 	
 }

@@ -1,6 +1,7 @@
 package com.example.hrms.entities.concretes;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -22,7 +24,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name="job_postings")
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "favoriteJobPostings"})
 public class JobPosting {
 	
 	@Id
@@ -66,5 +68,8 @@ public class JobPosting {
 	
 	@ManyToOne
 	@JoinColumn(name="working_type_id")
-	private WorkingType workingType;
+	private WorkingType workingType;	
+	
+	@OneToMany(mappedBy = "jobPosting")
+	private List<FavoriteJobPosting> favoriteJobPostings;
 }

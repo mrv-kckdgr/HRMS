@@ -30,4 +30,8 @@ public interface ResumeService {
 	
 	//Bir adaya ait CV detay  görüntüleme
 	DataResult<ResumeDto> getByCandidateId(int candidateId);
+	
+	Result updateResumeDto(ResumeDto resumeDto);
+	
+	DataResult<Resume> getById(int id);
 }

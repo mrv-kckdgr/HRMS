@@ -24,6 +24,12 @@ import lombok.NoArgsConstructor;
 @Table(name="jobposting_working_time")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "jobPostings"})
 public class WorkingTime {
+	public WorkingTime(int id) {
+		super();
+		this.id = id;
+	}
+
+
 	@Id
 	@Column(name="id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

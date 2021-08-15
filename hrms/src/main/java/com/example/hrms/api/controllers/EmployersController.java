@@ -50,6 +50,21 @@ public class EmployersController {
 		return this.employerService.add(employer);
 	}
 	
+	@PostMapping("/loginEmployer")
+	public Result loginEmployer(@RequestParam String email, String password) {
+		return this.employerService.loginEmployer(email, password);
+	}
+	
+	@GetMapping("/getbyid")
+	public DataResult<Employer> getById(int id){
+		return this.employerService.getById(id);
+	}
+	
+	@PostMapping("/update")
+	public Result update(Employer employer) {
+		return this.employerService.update(employer);
+	}
+	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ErrorDataResult<Object> handlerValidationException(MethodArgumentNotValidException exceptions){
@@ -60,10 +75,5 @@ public class EmployersController {
 		ErrorDataResult<Object> errors = new ErrorDataResult<Object>(validationErrors, "Doğrulama hataları:");
 		return errors;
 		
-	}
-	
-	@PostMapping("loginEmployer")
-	public Result loginEmployer(@RequestParam String email, String password) {
-		return this.employerService.loginEmployer(email, password);
 	}
 }

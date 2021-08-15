@@ -15,7 +15,11 @@ import com.example.hrms.core.utilities.results.Result;
 import com.example.hrms.core.utilities.results.SuccessDataResult;
 import com.example.hrms.core.utilities.results.SuccessResult;
 import com.example.hrms.dataAccess.abstracts.JobPostingDao;
+import com.example.hrms.entities.concretes.City;
+import com.example.hrms.entities.concretes.JobPosition;
 import com.example.hrms.entities.concretes.JobPosting;
+import com.example.hrms.entities.concretes.WorkingTime;
+import com.example.hrms.entities.concretes.WorkingType;
 import com.example.hrms.entities.dtos.JobPostingAddDto;
 import com.example.hrms.entities.dtos.JobPostingDto;
 
@@ -108,7 +112,7 @@ public class JobPostingManager implements JobPostingService {
 	//Aktif iş ilanlarının listesi
 	@Override
 	public DataResult<List<JobPosting>> getByStatus(boolean status) {
-		return new SuccessDataResult<List<JobPosting>>(jobPostingDao.getByStatus(true));
+		return new SuccessDataResult<List<JobPosting>>(jobPostingDao.getByStatus(status));
 	}
 
 	@Override
@@ -182,6 +186,22 @@ public class JobPostingManager implements JobPostingService {
 		return new SuccessResult("İş ilanı başarılı bir şekilde aktif hale getirilmiştir.");
 	}
 
-		
 
+	@Override
+	public Result updateJobPosting(JobPostingAddDto jobPostingDto) {
+		JobPosting updatedJobPosting = modelMapper.map(jobPostingDto, JobPosting.class);
+		updatedJobPosting.setMaxSalary(jobPostingDto.getMaxSalary());
+		updatedJobPosting.setMinSalary(jobPostingDto.getMinSalary());
+		updatedJobPosting.setNumberOfPosition(jobPostingDto.getNumberOfPosition());
+		updatedJobPosting.setReleaseDate(jobPostingDto.getReleaseDate());
+		updatedJobPosting.setCity(new City(jobPostingDto.getCityId()));
+		updatedJobPosting.setWorkingTime(new WorkingTime(jobPostingDto.getWorkingTimeId()));
+		updatedJobPosting.setWorkingType(new WorkingType(jobPostingDto.getWorkingTypeId()));
+		updatedJobPosting.setJobPosition(new JobPosition(jobPostingDto.getJobPositionId()));;
+		updatedJobPosting.setApplicationDeadline(jobPostingDto.getApplicationDeadline());
+		jobPostingDao.save(updatedJobPosting);
+		System.out.println(updatedJobPosting.getId());
+		System.out.println(updatedJobPosting.getMaxSalary());
+		return new SuccessResult("İş ilanı başarılı bir şekilde güncellendi.");
+	}
 }

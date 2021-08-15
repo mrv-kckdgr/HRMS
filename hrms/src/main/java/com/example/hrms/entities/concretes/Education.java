@@ -1,6 +1,7 @@
 package com.example.hrms.entities.concretes;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,7 +34,6 @@ public class Education {
 	@Column(name="id")
 	private int id;
 	
-	//@Column(name="resume_id")
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne(targetEntity=Resume.class)
 	@JoinColumn(name="resume_id", referencedColumnName="id", nullable = false)
@@ -43,9 +43,6 @@ public class Education {
 	@NotNull()
 	@NotBlank(message="Okul adı boş geçilemez!!!")
 	private String schoolName;
-	
-	//@Column(name="graduate_type_id")
-	//private int graduateTypeId;
 	
 	@Column(name="school_department")
 	@NotBlank(message = "Departman boş geçilemez!!!")
@@ -58,10 +55,9 @@ public class Education {
 	private Date endDate;
 	
 	@Column(name="create_date")
-	private Date createDate;	
+	private LocalDate createDate = LocalDate.now();	
 	
-	//@Column(name="graduate_type_id")
-	//@NotBlank()
+
 	@ManyToOne(targetEntity = GraduateType.class)
 	@JoinColumn(name="graduate_type_id", referencedColumnName="id", nullable = false)
 	private GraduateType graduateType;

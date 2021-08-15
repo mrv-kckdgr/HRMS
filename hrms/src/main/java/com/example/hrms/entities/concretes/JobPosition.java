@@ -25,6 +25,11 @@ import javax.persistence.GenerationType;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "jobPostings"})
 public class JobPosition {
 	
+	public JobPosition(int id) {
+		super();
+		this.id = id;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
