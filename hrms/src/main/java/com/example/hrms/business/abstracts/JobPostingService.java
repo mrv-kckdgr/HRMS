@@ -59,4 +59,7 @@ public interface JobPostingService {
     Result activeJobPosting(int id);
     
     Result updateJobPosting(JobPostingAddDto jobPostingDto);
+    
+    DataResult<List<JobPosting>> getByCity_IdAndJobPosition_IdAndWorkingTime_IdAndWorkingType(int cityId, int jobPositionId, int workingTimeId, int workingTypeId);
+	
 }

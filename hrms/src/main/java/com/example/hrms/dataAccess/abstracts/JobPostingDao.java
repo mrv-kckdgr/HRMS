@@ -47,4 +47,7 @@ public interface JobPostingDao extends JpaRepository<JobPosting, Integer> {
 	@Query("From JobPosting where employer.id=:employerId and status=:status")
 	List<JobPosting> getByEmployer_Id(int employerId, boolean status);
 	
+	@Query("From JobPosting where city.id=:cityId and jobPosition.id=:jobPositionId and workingTime.id=:workingTimeId and  workingType.id=:workingTypeId")
+	List<JobPosting> getByCity_IdAndJobPosition_IdAndWorkingTime_IdAndWorkingType(int cityId, int jobPositionId, int workingTimeId, int workingTypeId);
+	
 }

@@ -126,6 +126,13 @@ public class JobPostingsController {
 		return this.jobPostingService.updateJobPosting(jobPostingDto);
 	}
 	
+	
+	@GetMapping("getByCityAndJobPositionAndWorkingTimeAndWorkingType")
+	public DataResult<List<JobPosting>> getByCity_IdAndJobPosition_IdAndWorkingTime_IdAndWorkingType(int cityId,
+			int jobPositionId, int workingTimeId, int workingTypeId) {
+		return this.jobPostingService.getByCity_IdAndJobPosition_IdAndWorkingTime_IdAndWorkingType(cityId, jobPositionId, workingTimeId, workingTypeId);
+	}		
+	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ErrorDataResult<Object> handlerValidationException(MethodArgumentNotValidException exceptions){

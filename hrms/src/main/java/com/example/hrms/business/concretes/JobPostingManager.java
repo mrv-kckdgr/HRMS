@@ -204,4 +204,11 @@ public class JobPostingManager implements JobPostingService {
 		System.out.println(updatedJobPosting.getMaxSalary());
 		return new SuccessResult("İş ilanı başarılı bir şekilde güncellendi.");
 	}
+
+
+	@Override
+	public DataResult<List<JobPosting>> getByCity_IdAndJobPosition_IdAndWorkingTime_IdAndWorkingType(int cityId,
+			int jobPositionId, int workingTimeId, int workingTypeId) {
+		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.getByCity_IdAndJobPosition_IdAndWorkingTime_IdAndWorkingType(cityId, jobPositionId, workingTimeId, workingTypeId), "Listeleme başarılı");
+	}
 }
