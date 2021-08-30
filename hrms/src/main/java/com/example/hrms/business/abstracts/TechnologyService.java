@@ -8,6 +8,7 @@ import com.example.hrms.entities.concretes.Technology;
 import com.example.hrms.entities.dtos.TechnologyAddDto;
 
 public interface TechnologyService {
+	
 	DataResult<List<Technology>> getAll();
 	
 	Result add(Technology technology);

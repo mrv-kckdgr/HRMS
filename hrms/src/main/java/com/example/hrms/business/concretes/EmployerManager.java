@@ -31,6 +31,7 @@ public class EmployerManager implements EmployerService {
 	public DataResult<List<Employer>> getAll() {		
 		return new SuccessDataResult<List<Employer>>(this.employerDao.findAll(), "Veriler başarılı bir şekilde listelendi");
 	}
+	
 	@Override
 	public Result add(Employer employer) {
 		//if(userDao.existsByEmail(employer.getEmail())==true && employer.getPassword() == employer.getPasswordRepeat()) {
@@ -39,6 +40,7 @@ public class EmployerManager implements EmployerService {
 		//}
 		//return new ErrorResult("Çalışan eklenemedi, lütfen farklı bir mail adresi deneyiniz veya şifre alanlarınız uyuşmuyor olabilir!!!");
 	}
+	
 	@Override
 	public Result loginEmployer(String email, String password) {
 		System.out.println(email);
@@ -47,24 +49,35 @@ public class EmployerManager implements EmployerService {
 			return new SuccessResult("Giriş Başarılı");					
 		}
 		
-	    return new ErrorResult("Giriş Başarısız!!!");			
-		
+	    return new ErrorResult("Giriş Başarısız!!!");					
 	}
+	
 	@Override
 	public DataResult<Employer> getById(int id) {
 		return new SuccessDataResult<Employer>(employerDao.getById(id),"Listeleme başarılı");
 	}
+	
 	@Override
-	public Result update(Employer employer) {
-		Employer employerUpdate = employerDao.getById(employer.getId());
-		employerUpdate.setCompanyName(employer.getCompanyName());
-		employerUpdate.setEmail(employer.getEmail());
-		employerUpdate.setJobPostings(employer.getJobPostings());
-		employerUpdate.setPassword(employer.getPassword());
-		employerUpdate.setPhoneNumber(employer.getPhoneNumber());
-		employerUpdate.setWebAddress(employer.getWebAddress());
-		employerDao.save(employerUpdate);
-		return new SuccessResult("Çalışan başarılı bir şekilde güncellendi");
+	public Result update(Employer employer) {		
+		Employer updatedUser = employerDao.getById(employer.getId());
+		updatedUser.setUpdateEmployer(employer);		
+		employerDao.save(updatedUser);
+		return new SuccessResult("Güncelleme başarılı bir şekilde gerçekleştirildi. Güncelleme için HRMS personelinin onayı bekleniyor.");
 	}
-
+	
+	@Override
+	public Result approveEmployer(int userId) {
+		Employer employer = employerDao.getById(userId);
+		if(employer.getUpdateEmployer()!=null) {
+			Employer updatedData = employer.getUpdateEmployer();
+            employerDao.save(updatedData);
+            return new SuccessResult("İşveren HRMS personeli tarafından onaylandı. İşveren onay durumu Onaylandı olarak değiştirildi");
+		}
+        return new SuccessResult("güncellenmiş veriniz yok");
+	}
+	
+	@Override
+	public DataResult<List<Employer>> getByUpdateEmployer() {
+		return new SuccessDataResult<List<Employer>>(employerDao.getByUpdateEmployer());
+	}
 }

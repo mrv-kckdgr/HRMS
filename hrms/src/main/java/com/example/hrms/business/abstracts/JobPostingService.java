@@ -62,4 +62,5 @@ public interface JobPostingService {
     
     DataResult<List<JobPosting>> getByCity_IdAndJobPosition_IdAndWorkingTime_IdAndWorkingType(int cityId, int jobPositionId, int workingTimeId, int workingTypeId);
 	
+    DataResult<List<JobPosting>> getAllPageableJobPostings(int pageNo, int pageSize);
 }

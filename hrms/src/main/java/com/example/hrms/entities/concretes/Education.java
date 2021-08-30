@@ -55,8 +55,7 @@ public class Education {
 	private Date endDate;
 	
 	@Column(name="create_date")
-	private LocalDate createDate = LocalDate.now();	
-	
+	private LocalDate createDate = LocalDate.now();		
 
 	@ManyToOne(targetEntity = GraduateType.class)
 	@JoinColumn(name="graduate_type_id", referencedColumnName="id", nullable = false)

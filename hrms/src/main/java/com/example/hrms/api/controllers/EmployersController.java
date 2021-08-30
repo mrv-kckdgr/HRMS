@@ -19,13 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.hrms.business.abstracts.EmployerService;
 import com.example.hrms.core.utilities.results.DataResult;
 import com.example.hrms.core.utilities.results.ErrorDataResult;
-import com.example.hrms.core.utilities.results.ErrorResult;
 import com.example.hrms.core.utilities.results.Result;
-import com.example.hrms.core.utilities.results.SuccessResult;
 import com.example.hrms.entities.concretes.Employer;
 
 @RestController
@@ -61,8 +58,19 @@ public class EmployersController {
 	}
 	
 	@PostMapping("/update")
-	public Result update(Employer employer) {
+	public Result update(@Valid @RequestBody Employer employer) {
 		return this.employerService.update(employer);
+	}
+	
+	  
+	@PostMapping("/approveEmployer")
+    public Result approveEmployer(@RequestParam int id) {
+        return employerService.approveEmployer(id);
+    }
+	
+	@GetMapping("/getByUnapprovedEmployer")
+	public DataResult<List<Employer>> getByUpdateEmployer() {
+		return this.employerService.getByUpdateEmployer();
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)

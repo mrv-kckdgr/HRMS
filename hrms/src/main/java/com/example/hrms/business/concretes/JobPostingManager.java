@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -210,5 +212,12 @@ public class JobPostingManager implements JobPostingService {
 	public DataResult<List<JobPosting>> getByCity_IdAndJobPosition_IdAndWorkingTime_IdAndWorkingType(int cityId,
 			int jobPositionId, int workingTimeId, int workingTypeId) {
 		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.getByCity_IdAndJobPosition_IdAndWorkingTime_IdAndWorkingType(cityId, jobPositionId, workingTimeId, workingTypeId), "Listeleme başarılı");
+	}
+
+
+	@Override
+	public DataResult<List<JobPosting>> getAllPageableJobPostings(int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo, pageSize);
+		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.findAll(pageable).getContent());
 	}
 }

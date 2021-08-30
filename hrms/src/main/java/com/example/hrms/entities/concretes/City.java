@@ -9,9 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,8 +21,6 @@ import lombok.NoArgsConstructor;
 @Table(name="cities")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "jobPostings"})
 public class City {
-	
-	
 	
 	public City(int id) {
 		super();

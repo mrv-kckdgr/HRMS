@@ -83,7 +83,7 @@ public class JobPostingsController {
 	
 	//Tüm aktif iş ilanlarının tarihe göre listelenmesi, pasif ise kullanıcıyı bilgilendirme
 	@GetMapping("/getAllBySortedDesc")
-	public DataResult<List<JobPosting>> getAllSorted(int pageNo, int pageSize){
+	public DataResult<List<JobPosting>> getAllSorted(@RequestParam int pageNo, int pageSize){
 		return this.jobPostingService.getAllSorted(pageNo, pageSize);
 	}
 	
@@ -131,7 +131,12 @@ public class JobPostingsController {
 	public DataResult<List<JobPosting>> getByCity_IdAndJobPosition_IdAndWorkingTime_IdAndWorkingType(int cityId,
 			int jobPositionId, int workingTimeId, int workingTypeId) {
 		return this.jobPostingService.getByCity_IdAndJobPosition_IdAndWorkingTime_IdAndWorkingType(cityId, jobPositionId, workingTimeId, workingTypeId);
-	}		
+	}
+	
+	@GetMapping("getAllPageableJobPostings")
+	public DataResult<List<JobPosting>> getAllPageableJobPostings(@RequestParam int pageNo, int pageSize){
+		return this.jobPostingService.getAllPageableJobPostings(pageNo, pageSize);
+	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)

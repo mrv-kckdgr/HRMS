@@ -16,4 +16,9 @@ public interface EmployerService {
 	DataResult<Employer> getById(int id);
 	
 	Result update(Employer employer);
+	
+	Result approveEmployer(int userId);
+	
+	// Onaylanmamış iş verenler listesi
+	DataResult<List<Employer>> getByUpdateEmployer();
 }

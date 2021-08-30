@@ -68,12 +68,7 @@ public class TechnologiesController {
 	@PostMapping("/updateTechnologyDto")
 	public Result updateTechnologyDto(@Valid @RequestBody TechnologyAddDto technologyAddDto) {
 		return this.technologyService.updateTechnologyDto(technologyAddDto);
-	}
-	
-	@GetMapping("/getbytechnologydtoid")
-	public DataResult<TechnologyAddDto> getByTechnologyAddDto_Id(@RequestParam int id) {
-		return this.technologyService.getByTechnologyAddDto_Id(id);
-	}
+	}	
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
